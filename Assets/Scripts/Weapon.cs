@@ -29,6 +29,7 @@ public class Weapon : MonoBehaviour
     {
         //transform.position = (transform.position - center.position).normalized * radius + center.position;
         //firstRotation = transform.rotation;
+        //projectileWithCenter.transform.LookAt(projectileWithCenter.transform.position);
     }
 
     public void Shoot(Vector3 playersPosition, Quaternion playersRotation, bool isReversed = false)
