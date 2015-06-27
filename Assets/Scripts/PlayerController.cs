@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            weapon.Shoot(transform.position, Input.mousePosition);
+            weapon.Shoot(transform.position, transform.rotation);
         }
     }
 
