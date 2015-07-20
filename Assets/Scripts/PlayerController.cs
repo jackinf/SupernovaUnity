@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject Center;
+    public GameObject center;
     public float speed = 3;
 
     private Weapon weapon;
@@ -33,43 +32,22 @@ public class PlayerController : MonoBehaviour
 
     private void RotateUsingQuaternions()
     {
+        // Get input
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
 
-        var direction = new Vector2(vertical, -horizontal);
+        // Calculate the axis to move around. We calculate 90-degree vector in order to move up when pressing UP key, not right.
+        // This way, we calculate 2D Vector, which always makes an 90-degree angle to the player-s front.
+        // We use this Vector to rotate our player around.
 
-        if (direction != Vector2.zero)
+        var axis = new Vector2(vertical, -horizontal);
+
+        if (axis != Vector2.zero)
         {
-            var normalizedDir = direction.normalized;
-            var angleAxis = Quaternion.AngleAxis(Time.deltaTime * speed, normalizedDir);
-            Center.transform.localRotation *= angleAxis;
+            axis.Normalize();      // Convert X and Y values, which should be between 0 and 1.
+            var angleAxis = Quaternion.AngleAxis(Time.deltaTime * speed, axis);     // Calculate the rotation.
+            center.transform.localRotation *= angleAxis;    // Apply the rotation to the player.
         }
     }
-
-    private void RotateUsingVectors()
-    {
-        var horizontal = Input.GetAxis("Horizontal");
-        var vertical = Input.GetAxis("Vertical");
-
-        //RotateMe();
-
-        if (Mathf.Abs(horizontal) > 0)
-        {
-            transform.RotateAround(Center.transform.position, IsReversed() ? Vector3.up : Vector3.down, horizontal * speed * Time.deltaTime);
-        }
-
-        if (Mathf.Abs(vertical) > 0)
-        {
-            transform.RotateAround(Center.transform.position, Vector3.left, vertical * speed * Time.deltaTime);
-        }
-    }
-
-    private bool IsReversed()
-    {
-        var angle = Vector3.Angle(transform.up, Vector3.up);
-        Debug.Log(angle);
-        return angle > 90f;
-    }
-    
 
 }
