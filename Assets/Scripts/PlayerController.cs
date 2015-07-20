@@ -15,11 +15,19 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // Movement logic
         RotateUsingQuaternions();
 
-        if (Input.GetButtonDown("Fire1"))
+        // Shooting logic
+        if (Input.GetButtonDown("Jump"))
+            weapon.Shoot(transform.position, transform.forward);
+
+        // Rotation logic
+        var leftButton = Input.GetButton("RotateLeft");
+        var rightButton = Input.GetButton("RotateRight");
+        if (leftButton || rightButton)
         {
-            weapon.Shoot(transform.position, transform.rotation);
+            transform.Rotate(0f, 270 * Time.deltaTime * (leftButton ? -1 : 1), 0f);
         }
     }
 
@@ -34,7 +42,7 @@ public class PlayerController : MonoBehaviour
         {
             var normalizedDir = direction.normalized;
             var angleAxis = Quaternion.AngleAxis(Time.deltaTime * speed, normalizedDir);
-            Center.transform.rotation *= angleAxis;
+            Center.transform.localRotation *= angleAxis;
         }
     }
 
