@@ -32,7 +32,6 @@ public class Weapon : MonoBehaviour
         // We also need -1 for projectiles to appear not on the other side of the planet. 
 
         projectileTemplate.transform.LookAt(fromPosition * -1, forward);         
-        //projectileClone = Instantiate(projectileTemplate, projectileTemplate.transform.position, transform.rotation) as GameObject;
         projectileClone = Instantiate(projectileTemplate);
     }
 }
