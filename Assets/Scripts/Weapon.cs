@@ -6,24 +6,33 @@ public class Weapon : MonoBehaviour
     public float projectileSpeed = 20f;         // Speed of the projectile
     public BulletManager bulletManager;
 
+    private float shootTreshold = .1f;
+    private float timePassed = 0f;
+
+    void Update()
+    {
+        timePassed += Time.deltaTime;
+    }
+
     /// <summary>
     /// Instantiates projectiles
     /// </summary>
     /// <param name="fromPosition">Position, where projectiles start flying from</param>
-    /// <param name="forward">Direction to shoot projectiles towards</param>
-    public void Shoot(Vector3 fromPosition, Vector3 forward)
+    /// <param name="shootDirection">Direction in which to shoot projectiles</param>
+    public void Shoot(Vector3 fromPosition, Vector3 shootDirection)
     {
-        // We use LookAt to instantiate projetiles on the right place. Projectiles should be comprised from 2 parts: center point and GameObject
-        // which rotates around its center. GameObject is on the surface of the planet.
-        // We also need -1 for projectiles to appear not on the other side of the planet. 
-        projectileTemplate.transform.LookAt(fromPosition * -1, forward);
+        if (timePassed > shootTreshold)
+        {
+            timePassed = 0;
 
-        // Let's create a bullet and add it to the pool.
-        var bullet = new Bullet(Instantiate(projectileTemplate), projectileSpeed);
-        bulletManager.Add(bullet);
+            // We use LookAt to instantiate projetiles on the right place. Projectiles should be comprised from 2 parts: center point and GameObject
+            // which rotates around its center. GameObject is on the surface of the planet.
+            // We also need -1 for projectiles to appear not on the other side of the planet. 
+            projectileTemplate.transform.LookAt(fromPosition * -1, fromPosition * -1 + shootDirection);
 
-        projectileTemplate.transform.LookAt(fromPosition * -1, new Vector3(forward.y, -forward.x));
-        var bullet1 = new Bullet(Instantiate(projectileTemplate), projectileSpeed);
-        bulletManager.Add(bullet1);
+            // Let's create a bullet and add it to the pool.
+            var bullet = new Bullet(Instantiate(projectileTemplate), projectileSpeed);
+            bulletManager.Add(bullet);
+        }
     }
 }
