@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
         if (axis != Vector2.zero)
         {
             axis.Normalize();      // Convert X and Y values, which should be between 0 and 1.
+            Debug.DrawLine(axis * -30f, axis * 30f, Color.cyan);
             var angleAxis = Quaternion.AngleAxis(Time.deltaTime * speed, axis);     // Calculate the rotation.
             center.transform.localRotation *= angleAxis;    // Apply the rotation to the player.
         }

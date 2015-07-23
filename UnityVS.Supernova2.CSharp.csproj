@@ -68,14 +68,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Bullet.cs" />
-    <Compile Include="Assets\Scripts\BulletManager.cs" />
+    <Compile Include="Assets\Scripts\Asteroids\Asteroid.cs" />
+    <Compile Include="Assets\Scripts\Asteroids\AsteroidInner.cs" />
+    <Compile Include="Assets\Scripts\Asteroids\AsteroidManager.cs" />
     <Compile Include="Assets\Scripts\DestroyOnTimeout.cs" />
     <Compile Include="Assets\Scripts\Input\InputManager.cs" />
     <Compile Include="Assets\Scripts\Input\InputState.cs" />
     <Compile Include="Assets\Scripts\Old\Weapon_old.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Shooting\Bullet.cs" />
+    <Compile Include="Assets\Scripts\Shooting\BulletManager.cs" />
+    <Compile Include="Assets\Scripts\Shooting\Weapon.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
