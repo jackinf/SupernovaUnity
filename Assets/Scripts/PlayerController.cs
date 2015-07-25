@@ -7,24 +7,53 @@ public class PlayerController : MonoBehaviour
     public float speed = 3;             // movement speed
 
     private Weapon weapon;
+    private SphereCollider collisionDetector;
+    private float invincibleFrom = 0f;
+    private float invincibleTo = 3f;
+    private bool isInvincible;
+    private MeshRenderer meshRenderer;
 
     void Awake()
     {
         weapon = GetComponent<Weapon>();
+        collisionDetector = GetComponent<SphereCollider>();
+        meshRenderer = gameObject.transform.GetChild(0).GetComponent<MeshRenderer>();
+    }
+
+    void OnEnable()
+    {
+        collisionDetector.enabled = false;
+        invincibleFrom = 0f;
+        isInvincible = true;
     }
 
     void Update()
     {
         // Draw local coordinates
-        Debug.DrawLine(transform.position, transform.position + transform.forward*10, Color.blue);
-        Debug.DrawLine(transform.position, transform.position + transform.up*10, Color.green);
-        Debug.DrawLine(transform.position, transform.position + transform.right*10, Color.red);
+        Debug.DrawLine(transform.position, transform.position + transform.forward * 10, Color.blue);
+        Debug.DrawLine(transform.position, transform.position + transform.up * 10, Color.green);
+        Debug.DrawLine(transform.position, transform.position + transform.right * 10, Color.red);
 
         // Movement logic
         RotateUsingQuaternions();
 
         // Shooting logic
         Shooting();
+
+        if (isInvincible)
+        {
+            invincibleFrom += Time.deltaTime;
+            if (invincibleFrom >= invincibleTo)
+            {
+                isInvincible = false;
+                collisionDetector.enabled = true;
+            }
+            else
+            {
+                meshRenderer.enabled = !meshRenderer.enabled;
+            }
+        }
+
     }
 
     private void RotateUsingQuaternions()
@@ -46,6 +75,7 @@ public class PlayerController : MonoBehaviour
             var angleAxis = Quaternion.AngleAxis(Time.deltaTime * speed, axis);     // Calculate the rotation.
             center.transform.localRotation *= angleAxis;    // Apply the rotation to the player.
         }
+
     }
 
     private void Shooting()

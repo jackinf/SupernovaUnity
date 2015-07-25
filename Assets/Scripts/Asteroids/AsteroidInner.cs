@@ -8,8 +8,20 @@ public class AsteroidInner : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Bullet"))
         {
-            Instantiate(explosionTemplate, gameObject.transform.position, Quaternion.identity);
+            PlayExplosion();
             Destroy(gameObject.transform.parent.gameObject);
+            Destroy(other.gameObject);
         }
+        else if (other.gameObject.CompareTag("Player"))
+        {
+            PlayExplosion();
+            other.gameObject.SetActive(false);
+            GameObject.FindGameObjectWithTag("RespawnManager").GetComponent<RespawnManager>().StartRespawn(other.gameObject);
+        }
+    }
+
+    private void PlayExplosion()
+    {
+        Destroy(Instantiate(explosionTemplate, gameObject.transform.position, Quaternion.identity), 3f);
     }
 }
