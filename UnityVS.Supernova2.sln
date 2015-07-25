@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.Supernova2.CSharp.Plugins", "UnityVS.Supernova2.CSharp.Plugins.csproj", "{1746D861-358F-548C-5F63-2EBE08380B43}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.Supernova2.CSharp", "UnityVS.Supernova2.CSharp.csproj", "{44311CF8-3E29-0AEA-6519-C031A336474C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.Supernova2.CSharp.Editor", "UnityVS.Supernova2.CSharp.Editor.csproj", "{275D1DA1-D9B9-42A3-5AB0-078C64A1053E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1746D861-358F-548C-5F63-2EBE08380B43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1746D861-358F-548C-5F63-2EBE08380B43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1746D861-358F-548C-5F63-2EBE08380B43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1746D861-358F-548C-5F63-2EBE08380B43}.Release|Any CPU.Build.0 = Release|Any CPU
 		{44311CF8-3E29-0AEA-6519-C031A336474C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{44311CF8-3E29-0AEA-6519-C031A336474C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44311CF8-3E29-0AEA-6519-C031A336474C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44311CF8-3E29-0AEA-6519-C031A336474C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{275D1DA1-D9B9-42A3-5AB0-078C64A1053E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{275D1DA1-D9B9-42A3-5AB0-078C64A1053E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{275D1DA1-D9B9-42A3-5AB0-078C64A1053E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{275D1DA1-D9B9-42A3-5AB0-078C64A1053E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
