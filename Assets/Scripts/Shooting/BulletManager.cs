@@ -3,25 +3,25 @@ using UnityEngine;
 
 public class BulletManager : MonoBehaviour 
 {
-    private List<Bullet> bullets = new List<Bullet>(); 
+    private readonly List<Bullet> _bullets = new List<Bullet>(); 
 
     void Update()
     {
-        for (int i = bullets.Count - 1; i >= 0; i--)
+        for (int i = _bullets.Count - 1; i >= 0; i--)
         {
-            var bullet = bullets[i];
+            var bullet = _bullets[i];
             if (!bullet.IsAlive())
             {
-                bullets.RemoveAt(i);
+                _bullets.RemoveAt(i);
                 continue;
             }
 
-            bullet.OuterUpdate();
+            bullet.Update();
         }
     }
 
     public void Add(Bullet bullet)
     {
-        bullets.Add(bullet);
+        _bullets.Add(bullet);
     }
 }

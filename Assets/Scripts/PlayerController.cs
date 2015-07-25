@@ -81,10 +81,10 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Can anybody kill the player?
     /// </summary>
-    /// <param name="value">Yes or no?</param>
+    /// <param name="value">Invincible or not?</param>
     private void SetInvincible(bool value)
     {
-        _collisionDetector.enabled = value;
+        _collisionDetector.enabled = !value;
     }
 
     /// <summary>
