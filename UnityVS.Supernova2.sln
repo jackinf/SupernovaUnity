@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
+# Visual Studio 2013
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.Supernova2.CSharp.Plugins", "UnityVS.Supernova2.CSharp.Plugins.csproj", "{1746D861-358F-548C-5F63-2EBE08380B43}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.Supernova2.CSharp", "UnityVS.Supernova2.CSharp.csproj", "{44311CF8-3E29-0AEA-6519-C031A336474C}"

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -6,25 +7,22 @@ public class PlayerController : MonoBehaviour
     public GameObject center;           // point to rotate around
     public float speed = 3;             // movement speed
 
-    private Weapon weapon;
-    private SphereCollider collisionDetector;
-    private float invincibleFrom = 0f;
-    private float invincibleTo = 3f;
-    private bool isInvincible;
-    private MeshRenderer meshRenderer;
+    private Weapon _weapon;
+    private SphereCollider _collisionDetector;
+    private MeshRenderer _meshRenderer;
+    private const int BlinkCount = 10;
 
     void Awake()
     {
-        weapon = GetComponent<Weapon>();
-        collisionDetector = GetComponent<SphereCollider>();
-        meshRenderer = gameObject.transform.GetChild(0).GetComponent<MeshRenderer>();
+        _weapon = GetComponent<Weapon>();
+        _collisionDetector = GetComponent<SphereCollider>();
+        _meshRenderer = gameObject.transform.GetChild(0).GetComponent<MeshRenderer>();
     }
 
     void OnEnable()
     {
-        collisionDetector.enabled = false;
-        invincibleFrom = 0f;
-        isInvincible = true;
+        SetInvincible(true);
+        StartCoroutine(InvincibleAndBlink());
     }
 
     void Update()
@@ -39,21 +37,6 @@ public class PlayerController : MonoBehaviour
 
         // Shooting logic
         Shooting();
-
-        if (isInvincible)
-        {
-            invincibleFrom += Time.deltaTime;
-            if (invincibleFrom >= invincibleTo)
-            {
-                isInvincible = false;
-                collisionDetector.enabled = true;
-            }
-            else
-            {
-                meshRenderer.enabled = !meshRenderer.enabled;
-            }
-        }
-
     }
 
     private void RotateUsingQuaternions()
@@ -75,22 +58,52 @@ public class PlayerController : MonoBehaviour
             var angleAxis = Quaternion.AngleAxis(Time.deltaTime * speed, axis);     // Calculate the rotation.
             center.transform.localRotation *= angleAxis;    // Apply the rotation to the player.
         }
-
     }
 
+    /// <summary>
+    /// Direction vector to shoot is calculated.
+    /// </summary>
     private void Shooting()
     {
-        // Shooting section
         var horizontalShoot = Input.GetAxis("HorizontalShoot");
         var verticalShoot = Input.GetAxis("VerticalShoot");
         var shootDirection = new Vector3(horizontalShoot, 0, verticalShoot);
         shootDirection.Normalize();
         if (Math.Abs(horizontalShoot) > float.Epsilon || Math.Abs(verticalShoot) > float.Epsilon)
         {
-            var transformedShootingDirection = transform.TransformDirection(shootDirection);     // transform from local space to world space
-            weapon.Shoot(transform.position, transform.position + transformedShootingDirection);
-            Debug.DrawLine(transform.position, transform.position + transformedShootingDirection * 10f, Color.white);
+            var transformedShootingDirection = transform.TransformDirection(shootDirection);     // transform from local space to world space for correct shooting direction
+            _weapon.Shoot(transform.position, transform.position + transformedShootingDirection);
+            Debug.DrawLine(transform.position, transform.position + transformedShootingDirection * 10f, Color.white);   // Draws a vector in which direction the shooting occurs
+            // TODO: Add turret rotation
         }
+    }
+
+    /// <summary>
+    /// Can anybody kill the player?
+    /// </summary>
+    /// <param name="value">Yes or no?</param>
+    private void SetInvincible(bool value)
+    {
+        _collisionDetector.enabled = value;
+    }
+
+    /// <summary>
+    /// Coroutine method. Player is invincible during the whole coroutine and he blinks.
+    /// </summary>
+    /// <returns>Wait interval</returns>
+    private IEnumerator InvincibleAndBlink()
+    {
+        int counter = 0;
+        while (counter < BlinkCount)
+        {
+            counter++;
+            _meshRenderer.enabled = !_meshRenderer.enabled;
+            yield return new WaitForSeconds(.1f);
+        }
+
+        SetInvincible(false);
+
+        yield return null;
     }
 
 }
