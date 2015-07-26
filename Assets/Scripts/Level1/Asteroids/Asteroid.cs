@@ -4,7 +4,7 @@ public class Asteroid : Orbiteer
 {
     public float descendSpeed = .5f;
     public float startDescendingDistance = 50f;
-    public float descendMaximumDistance = 21f;
+    public float descendMaximumDistance = ApplicationModel.Planet1Radius;
 
     private bool _isDescending = true;
 
@@ -23,6 +23,9 @@ public class Asteroid : Orbiteer
     public override void Update()
     {
         base.Update();
+
+        if (!IsAlive())
+            return;
 
         if (_isDescending)
         {

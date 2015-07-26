@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject center;           // point to rotate around
     public float speed = 3;             // movement speed
+    public GameObject shipModels;       // contains all ship models
 
     private Weapon _weapon;
     private SphereCollider _collisionDetector;
@@ -16,9 +17,8 @@ public class PlayerController : MonoBehaviour
     {
         _weapon = GetComponent<Weapon>();
         _collisionDetector = GetComponent<SphereCollider>();
-        //var shipMesh = Instantiate(ApplicationModel.currentShip);
-        //shipMesh.transform.parent = gameObject.transform;
-        _meshRenderer = gameObject.transform.GetChild(0).GetComponent<MeshRenderer>();
+        SetSelectedShipModel();
+        //_meshRenderer = gameObject.transform.GetChild(0).GetComponent<MeshRenderer>();
     }
 
     void OnEnable()
@@ -41,6 +41,36 @@ public class PlayerController : MonoBehaviour
         Shooting();
     }
 
+    /// <summary>
+    /// Here, the ship's 3D model is set. 
+    /// </summary>
+    private void SetSelectedShipModel()
+    {
+        Transform selectedShip = null;        // Get selected ship model by name
+        for (int i = shipModels.transform.childCount - 1; i >= 0; i--)
+        {
+            var potentialShipModel = shipModels.transform.GetChild(i);
+            if (potentialShipModel.name == ApplicationModel.CurrentShipName)
+                selectedShip = potentialShipModel;
+            else
+                Destroy(potentialShipModel.gameObject);
+        }
+
+        if (selectedShip == null)
+        {
+            Debug.LogError("Ship with " + ApplicationModel.CurrentShipName + " was not found");
+            return;
+        }
+
+        selectedShip.gameObject.SetActive(true);
+        selectedShip.parent = gameObject.transform;                             // Assign a new parent
+        _meshRenderer = selectedShip.GetComponent<MeshRenderer>();              // Set the mesh, which will be blinking, rotating etc
+        Destroy(shipModels);                                                    // We don't need this container anymore. By this time, it should be empty anyways.
+    }
+
+    /// <summary>
+    /// Player's movement logic. Movement is done using rotations around the planet.
+    /// </summary>
     private void RotateUsingQuaternions()
     {
         // Get input
@@ -50,7 +80,6 @@ public class PlayerController : MonoBehaviour
         // Calculate the axis to move around. We calculate 90-degree vector in order to move up when pressing UP key, not right.
         // This way, we calculate 2D Vector, which always makes an 90-degree angle to the player-s front.
         // We use this Vector to rotate our player around.
-
         var axis = new Vector2(vertical, -horizontal);
 
         if (axis != Vector2.zero)

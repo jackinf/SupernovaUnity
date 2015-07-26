@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Common\ApplicationModel.cs" />
+    <Compile Include="Assets\Scripts\Common\Helpers.cs" />
     <Compile Include="Assets\Scripts\Level1\Asteroids\Asteroid.cs" />
     <Compile Include="Assets\Scripts\Level1\Asteroids\AsteroidInner.cs" />
     <Compile Include="Assets\Scripts\Level1\Asteroids\AsteroidManager.cs" />
@@ -84,11 +85,12 @@
     <Compile Include="Assets\Scripts\Level1\Orbiteer.cs" />
     <Compile Include="Assets\Scripts\Level1\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Level1\RespawnManager.cs" />
+    <Compile Include="Assets\Scripts\Level1\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\Level1\Shooting\Bullet.cs" />
     <Compile Include="Assets\Scripts\Level1\Shooting\BulletManager.cs" />
     <Compile Include="Assets\Scripts\Level1\Shooting\Weapon.cs" />
     <Compile Include="Assets\Scripts\ShipSelectionScene\ChangeShip.cs" />
-    <Compile Include="Assets\Scripts\ShipSelectionScene\CurrentShip.cs" />
+    <Compile Include="Assets\Scripts\ShipSelectionScene\ShipSelectionManager.cs" />
     <Compile Include="Assets\Scripts\ShipSelectionScene\Spinner.cs" />
     <Compile Include="Assets\Scripts\StartScene\StartTheGame.cs" />
   </ItemGroup>

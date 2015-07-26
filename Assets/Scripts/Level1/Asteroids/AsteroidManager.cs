@@ -8,8 +8,8 @@ public class AsteroidManager : MonoBehaviour
     public List<Asteroid> oribitingAsteroids = new List<Asteroid>();
     public float minScale = 0.5f;
     public float maxScale = 1.5f;
-    public float minSpeed = 50f;
-    public float maxSpeed = 50f;
+    public float minSpeed = 800f / ApplicationModel.Planet1Radius;
+    public float maxSpeed = 800f / ApplicationModel.Planet1Radius;
     public float maxLocalRotation = 3f;
 
     private GameObject _player;

@@ -11,6 +11,7 @@ public class AsteroidInner : MonoBehaviour
             PlayExplosion();
             Destroy(gameObject.transform.parent.gameObject);
             Destroy(other.gameObject);
+            ScoreManager.IncrementAsteroid();
         }
         else if (other.gameObject.CompareTag("Player"))
         {

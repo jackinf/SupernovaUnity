@@ -1,14 +1,20 @@
 ﻿using UnityEngine;
 using System.Linq;
+using UnityEditor;
 using UnityEngine.UI;
 
-public class CurrentShip : MonoBehaviour {
+public class ShipSelectionManager : MonoBehaviour {
 
     public GameObject[] ships;
     public int pointerId;
     public Text shipsName;
 
-	void Start ()
+    void Awake()
+    {
+        transform.gameObject.SetActive(EditorApplication.currentScene.Split('/').Last() == ApplicationModel.SelectShipSceneName);
+    }
+
+    void Start ()
 	{
         SetSingleShipActive(pointerId);
 	}
@@ -29,12 +35,12 @@ public class CurrentShip : MonoBehaviour {
         if (shipsCount < 0)
             Debug.LogError("There are no ships defined");
 
-        for (int i = 0; i < ships.Count(); i++)
+        for (int i = 0; i < shipsCount; i++)
         {
             if (which == i)
             {
                 ships[i].SetActive(true);
-                ApplicationModel.currentShip = ships[i];
+                ApplicationModel.CurrentShipName = ships[i].name;
                 shipsName.text = ships[i].name;
             }
             else

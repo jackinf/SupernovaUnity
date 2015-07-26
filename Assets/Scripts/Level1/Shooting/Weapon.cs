@@ -2,16 +2,16 @@
 
 public class Weapon : MonoBehaviour
 {
-    public GameObject projectileTemplate;       // Projectile's template
-    public float projectileSpeed = 20f;         // Speed of the projectile
+    public GameObject projectileTemplate;                                           // Projectile's template
+    public float projectileSpeed = 200f / ApplicationModel.Planet1Radius;           // Speed of the bullet
     public BulletManager bulletManager;
 
-    private float shootTreshold = .1f;
-    private float timePassed = 0f;
+    private float shootTreshold = .1f;      // shooting interval
+    private float shootingTimePassed;       // when this value is less than shootTreshold then weapon cannot shoot
 
     void Update()
     {
-        timePassed += Time.deltaTime;
+        shootingTimePassed += Time.deltaTime;
     }
 
     /// <summary>
@@ -21,9 +21,9 @@ public class Weapon : MonoBehaviour
     /// <param name="shootDirection">Direction in which to shoot projectiles</param>
     public void Shoot(Vector3 fromPosition, Vector3 shootDirection)
     {
-        if (timePassed > shootTreshold)
+        if (shootingTimePassed > shootTreshold)
         {
-            timePassed = 0;
+            shootingTimePassed = 0;
 
             // We use LookAt to instantiate projetiles on the right place. Projectiles should be comprised from 2 parts: center point and GameObject
             // which rotates around its center. GameObject is on the surface of the planet.
