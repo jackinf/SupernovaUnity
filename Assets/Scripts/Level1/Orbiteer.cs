@@ -21,10 +21,10 @@ public abstract class Orbiteer
 
     public bool IsAlive()
     {
-        return gameObject != null;
+        return gameObject != null && gameObject.activeSelf;
     }
 
-    public virtual void Update()
+    public virtual void UpdateInner()
     {
         if (!IsAlive())
             return;

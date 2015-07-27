@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AsteroidInner : MonoBehaviour
+public class AsteroidCollider : MonoBehaviour
 {
     public GameObject explosionTemplate;
 
@@ -9,9 +9,10 @@ public class AsteroidInner : MonoBehaviour
         if (other.gameObject.CompareTag("Bullet"))
         {
             PlayExplosion();
-            Destroy(gameObject.transform.parent.gameObject);
+            PickupManager.pickupLocations.Enqueue(new VecQuat{position = transform.position, rotation = transform.parent.rotation});
+            Destroy(transform.parent.gameObject);
             Destroy(other.gameObject);
-            ScoreManager.IncrementAsteroid();
+            ScoreManager.AddPointsForAsteroid();
         }
         else if (other.gameObject.CompareTag("Player"))
         {

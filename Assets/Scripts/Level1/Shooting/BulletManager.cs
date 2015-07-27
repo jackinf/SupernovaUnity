@@ -5,7 +5,7 @@ public class BulletManager : MonoBehaviour
 {
     private readonly List<Bullet> _bullets = new List<Bullet>(); 
 
-    void Update()
+    void FixedUpdate()
     {
         for (int i = _bullets.Count - 1; i >= 0; i--)
         {
@@ -16,7 +16,7 @@ public class BulletManager : MonoBehaviour
                 continue;
             }
 
-            bullet.Update();
+            bullet.UpdateInner();
         }
     }
 

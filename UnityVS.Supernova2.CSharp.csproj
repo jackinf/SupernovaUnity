@@ -77,12 +77,14 @@
     <Compile Include="Assets\Scripts\Common\ApplicationModel.cs" />
     <Compile Include="Assets\Scripts\Common\Helpers.cs" />
     <Compile Include="Assets\Scripts\Level1\Asteroids\Asteroid.cs" />
-    <Compile Include="Assets\Scripts\Level1\Asteroids\AsteroidInner.cs" />
+    <Compile Include="Assets\Scripts\Level1\Asteroids\AsteroidCollider.cs" />
     <Compile Include="Assets\Scripts\Level1\Asteroids\AsteroidManager.cs" />
     <Compile Include="Assets\Scripts\Level1\DestroyOnTimeout.cs" />
     <Compile Include="Assets\Scripts\Level1\Input\InputManager.cs" />
     <Compile Include="Assets\Scripts\Level1\Input\InputState.cs" />
     <Compile Include="Assets\Scripts\Level1\Orbiteer.cs" />
+    <Compile Include="Assets\Scripts\Level1\Pickup.cs" />
+    <Compile Include="Assets\Scripts\Level1\PickupCollider.cs" />
     <Compile Include="Assets\Scripts\Level1\PickupManager.cs" />
     <Compile Include="Assets\Scripts\Level1\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Level1\RespawnManager.cs" />

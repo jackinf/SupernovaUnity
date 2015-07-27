@@ -11,28 +11,24 @@ public class AsteroidManager : MonoBehaviour
     public float minSpeed = 800f / ApplicationModel.Planet1Radius;
     public float maxSpeed = 800f / ApplicationModel.Planet1Radius;
     public float maxLocalRotation = 3f;
+    public bool freeze = false;
 
-    private GameObject _player;
     private readonly Random _rand = new Random();
 
-    void Start()
-    {
-        _player = GameObject.FindGameObjectWithTag("Player");
-    }
-
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SpawnAsteroidAt(_rand.Next(0, 359), _rand.Next(0, 359));
         }
 
-        // Update all the asteroids
+        // UpdateInner all the asteroids
         for (int i = oribitingAsteroids.Count - 1; i >= 0; i--)
         {
             var asteroid = oribitingAsteroids[i];
-            asteroid.Update();
-
+            if (!freeze)
+                asteroid.UpdateInner();
+            
             if (!asteroid.IsAlive())
                 oribitingAsteroids.RemoveAt(i);
         }
@@ -41,9 +37,9 @@ public class AsteroidManager : MonoBehaviour
     /// <summary>
     /// Creates a new asteroid
     /// </summary>
-    /// <param name="xAngle"></param>
-    /// <param name="yAngle"></param>
-    private void SpawnAsteroidAt(int xAngle, int yAngle)
+    /// <param name="xAngle">X axis</param>
+    /// <param name="yAngle">Y axis</param>
+    public void SpawnAsteroidAt(int xAngle, int yAngle)
     {
         var clone = Instantiate(asteroidTemplate);
 

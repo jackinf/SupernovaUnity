@@ -20,9 +20,9 @@ public class Asteroid : Orbiteer
         this.localRotation = localRotation;
     }
 
-    public override void Update()
+    public override void UpdateInner()
     {
-        base.Update();
+        base.UpdateInner();
 
         if (!IsAlive())
             return;

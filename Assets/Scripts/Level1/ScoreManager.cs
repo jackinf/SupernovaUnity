@@ -10,10 +10,16 @@ public class ScoreManager : MonoBehaviour
     private static int score = 0;
     private static bool updateText = false;
 
-    public static void IncrementAsteroid()
+    public static void AddPointsForAsteroid()
     {
         asteroidsDestroyed++;
         score += ApplicationModel.AsteroidPoints;
+        updateText = true;
+    }
+
+    public static void AddPointsForPickup()
+    {
+        score += ApplicationModel.PickupPoints;
         updateText = true;
     }
 
