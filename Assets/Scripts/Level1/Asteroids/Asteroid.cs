@@ -6,7 +6,7 @@ public class Asteroid : Orbiteer
     public float startDescendingDistance = 50f;
     public float descendMaximumDistance = ApplicationModel.Planet1Radius;
 
-    private bool _isDescending = true;
+    public bool _isDescending = true;
 
     public Asteroid(GameObject gameObject) : base(gameObject)
     {

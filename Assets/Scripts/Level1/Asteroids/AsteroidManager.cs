@@ -22,25 +22,9 @@ public class AsteroidManager : MonoBehaviour
 
     void Update()
     {
-        // Create an asteroid with a key
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            var fromPosition = _player.transform.position * -1;
-            var randomMoveDirection = new Vector3((float) _rand.NextDouble() * 2 - 1, (float) _rand.NextDouble() * 2 - 1).normalized;
-
-            asteroidTemplate.transform.LookAt(fromPosition, fromPosition + randomMoveDirection);        // set direction to move to
-            var scale = (float) _rand.NextDouble()*maxScale + minScale;
-            asteroidTemplate.transform.localScale = new Vector3(scale, scale, scale);    // set scale
-
-            var asteroid = new Asteroid(
-                gameObject: Instantiate(asteroidTemplate),
-                movementSpeed: (float) _rand.NextDouble()* maxSpeed + minSpeed,
-                localRotation: new Vector3(
-                    x: (float) _rand.NextDouble() * maxLocalRotation, 
-                    y: (float) _rand.NextDouble() * maxLocalRotation, 
-                    z: (float) _rand.NextDouble() * maxLocalRotation));
-
-            oribitingAsteroids.Add(asteroid);
+            SpawnAsteroidAt(_rand.Next(0, 359), _rand.Next(0, 359));
         }
 
         // Update all the asteroids
@@ -52,5 +36,35 @@ public class AsteroidManager : MonoBehaviour
             if (!asteroid.IsAlive())
                 oribitingAsteroids.RemoveAt(i);
         }
+    }
+
+    /// <summary>
+    /// Creates a new asteroid
+    /// </summary>
+    /// <param name="xAngle"></param>
+    /// <param name="yAngle"></param>
+    private void SpawnAsteroidAt(int xAngle, int yAngle)
+    {
+        var clone = Instantiate(asteroidTemplate);
+
+        // set scale
+        var scale = (float)_rand.NextDouble() * maxScale + minScale;
+        clone.transform.localScale = new Vector3(scale, scale, scale);
+
+        // set random spawn location
+        clone.transform.rotation = Quaternion.Euler(xAngle, yAngle, 0f);
+
+        // set random direction to move -> Vector2([-1;1],[-1;1]) (TODO: I am not sure if this works correctly...)
+        asteroidTemplate.transform.LookAt(Vector3.zero, new Vector3((float)_rand.NextDouble() * 2 - 1, (float)_rand.NextDouble() * 2 - 1).normalized);
+
+        var asteroid = new Asteroid(
+            gameObject: clone,
+            movementSpeed: (float) _rand.NextDouble()*maxSpeed + minSpeed,
+            localRotation: new Vector3(
+                x: (float) _rand.NextDouble()*maxLocalRotation,
+                y: (float) _rand.NextDouble()*maxLocalRotation,
+                z: (float) _rand.NextDouble()*maxLocalRotation));
+        //asteroid._isDescending = false;
+        oribitingAsteroids.Add(asteroid);
     }
 }

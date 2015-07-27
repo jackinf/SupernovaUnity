@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\Level1\Input\InputManager.cs" />
     <Compile Include="Assets\Scripts\Level1\Input\InputState.cs" />
     <Compile Include="Assets\Scripts\Level1\Orbiteer.cs" />
+    <Compile Include="Assets\Scripts\Level1\PickupManager.cs" />
     <Compile Include="Assets\Scripts\Level1\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Level1\RespawnManager.cs" />
     <Compile Include="Assets\Scripts\Level1\ScoreManager.cs" />
