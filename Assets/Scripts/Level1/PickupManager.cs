@@ -2,28 +2,21 @@
 using UnityEngine;
 using Random = System.Random;
 
-// TODO: put into other place
-public class VecQuat
-{
-    public Vector3 position;
-    public Quaternion rotation;
-}
-
 public class PickupManager : MonoBehaviour
 {
     public GameObject pickupCenterTemplate;
-    public static Queue<VecQuat> pickupLocations = new Queue<VecQuat>();
+    public static Queue<Vector3> pickupLocations = new Queue<Vector3>();
+    public float dropChance = .33f;
     
     private readonly List<Pickup> _pickups = new List<Pickup>();
 
-    public void DropPickup(VecQuat pos)
+    public void DropPickup(Vector3 pos)
     {
         var random = new Random();
-        if (random.Next(0, 2) == 0)
+        if (random.NextDouble() < dropChance)
         {
             var go = Instantiate(pickupCenterTemplate);
-            go.transform.rotation = pos.rotation;
-            go.transform.GetChild(0).position = pos.position;
+            go.transform.GetChild(0).position = pos;
             var pickup = new Pickup(go);
             _pickups.Add(pickup);
         }
