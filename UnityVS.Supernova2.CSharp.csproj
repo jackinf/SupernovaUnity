@@ -83,10 +83,14 @@
     <Compile Include="Assets\Scripts\Level1\Input\InputManager.cs" />
     <Compile Include="Assets\Scripts\Level1\Input\InputState.cs" />
     <Compile Include="Assets\Scripts\Level1\Orbiteer.cs" />
-    <Compile Include="Assets\Scripts\Level1\Pickup.cs" />
-    <Compile Include="Assets\Scripts\Level1\PickupCollider.cs" />
-    <Compile Include="Assets\Scripts\Level1\PickupManager.cs" />
+    <Compile Include="Assets\Scripts\Level1\Pickup\Pickup.cs" />
+    <Compile Include="Assets\Scripts\Level1\Pickup\PickupCollider.cs" />
+    <Compile Include="Assets\Scripts\Level1\Pickup\PickupManager.cs" />
     <Compile Include="Assets\Scripts\Level1\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Level1\Process\Process.cs" />
+    <Compile Include="Assets\Scripts\Level1\Process\ProcessManager.cs" />
+    <Compile Include="Assets\Scripts\Level1\Process\SpawnWaveProcess.cs" />
+    <Compile Include="Assets\Scripts\Level1\Process\WaitProcess.cs" />
     <Compile Include="Assets\Scripts\Level1\RespawnManager.cs" />
     <Compile Include="Assets\Scripts\Level1\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\Level1\Shooting\Bullet.cs" />
