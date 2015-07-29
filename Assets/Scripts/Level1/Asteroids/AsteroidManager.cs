@@ -2,6 +2,9 @@
 using UnityEngine;
 using Random = System.Random;
 
+/// <summary>
+/// Stores and updates all asteroids
+/// </summary>
 public class AsteroidManager : MonoBehaviour
 {
     public GameObject asteroidTemplate;
@@ -53,6 +56,8 @@ public class AsteroidManager : MonoBehaviour
         // set random direction to move -> Vector2([-1;1],[-1;1]) (TODO: I am not sure if this works correctly...)
         asteroidTemplate.transform.LookAt(Vector3.zero, new Vector3((float)_rand.NextDouble() * 2 - 1, (float)_rand.NextDouble() * 2 - 1).normalized);
 
+        clone.transform.GetChild(0).GetComponent<AsteroidCollider>().HitPoints = (int) (scale * 100);
+
         var asteroid = new Asteroid(
             gameObject: clone,
             movementSpeed: (float) _rand.NextDouble()*maxSpeed + minSpeed,
@@ -60,7 +65,7 @@ public class AsteroidManager : MonoBehaviour
                 x: (float) _rand.NextDouble()*maxLocalRotation,
                 y: (float) _rand.NextDouble()*maxLocalRotation,
                 z: (float) _rand.NextDouble()*maxLocalRotation));
-        //asteroid._isDescending = false;
+
         oribitingAsteroids.Add(asteroid);
     }
 }

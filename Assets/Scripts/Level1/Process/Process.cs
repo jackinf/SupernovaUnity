@@ -48,7 +48,6 @@ public abstract class Process
 {
     private List<Process> _children;
     private ProcessState _previousState;
-    private Process _next;
 
     /// <summary>
     /// Gets the <see cref="ProcessState"/>.
@@ -185,23 +184,6 @@ public abstract class Process
             _children = new List<Process>();
         _children.Add(child);
         return child;
-    }
-
-    /// <summary>
-    /// Creates a chain of processes by assigning a new process
-    /// </summary>
-    /// <param name="waitProcess"></param>
-    /// <returns></returns>
-    public Process Attach(Process waitProcess)
-    {
-        _next = waitProcess;
-        return _next;
-    }
-
-    public Process Next()
-    {
-        _next.State = ProcessState.Uninitialized;
-        return _next;
     }
 
     /// <summary>

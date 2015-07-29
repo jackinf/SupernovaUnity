@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\Level1\RespawnManager.cs" />
     <Compile Include="Assets\Scripts\Level1\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\Level1\Shooting\Bullet.cs" />
+    <Compile Include="Assets\Scripts\Level1\Shooting\BulletDamage.cs" />
     <Compile Include="Assets\Scripts\Level1\Shooting\BulletManager.cs" />
     <Compile Include="Assets\Scripts\Level1\Shooting\Weapon.cs" />
     <Compile Include="Assets\Scripts\ShipSelectionScene\ChangeShip.cs" />

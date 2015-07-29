@@ -5,6 +5,7 @@ public class Weapon : MonoBehaviour
     public GameObject projectileTemplate;                                           // Projectile's template
     public float projectileSpeed = 200f / ApplicationModel.Planet1Radius;           // Speed of the bullet
     public BulletManager bulletManager;
+    public AudioSource shootingClip;
 
     private float shootTreshold = .1f;      // shooting interval
     private float shootingTimePassed;       // when this value is less than shootTreshold then weapon cannot shoot
@@ -33,6 +34,7 @@ public class Weapon : MonoBehaviour
             // Let's create a bullet and add it to the pool.
             var bullet = new Bullet(Instantiate(projectileTemplate), projectileSpeed);
             bulletManager.Add(bullet);
+            shootingClip.Play();
         }
     }
 }

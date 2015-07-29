@@ -1,64 +1,57 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manages the processes. Processes can be looped.
+/// </summary>
 public class ProcessManager : MonoBehaviour
 {
     public AsteroidManager AsteroidManager;
+    public bool IsLoop = true;
 
-    // TODO: Use queue instead?
-    //private readonly List<Process> _processList = new List<Process>();
-    private Process _currentProcess = null;
-    private int processPointer = 0;
+    private readonly List<Process> _processList = new List<Process>();
+    private int _processPointer;
+    private Process _currentProcess;
 
     void Awake()
     {
-        //_processList.Clear();
-        //_processList.Add(new SpawnWaveProcess(AsteroidManager, asteroids: 20));
-        //_processList.Add(new WaitProcess(waitTime: 5f));
-        //_processList.Add(new SpawnWaveProcess(AsteroidManager, asteroids: 50));
+        _processList.Clear();
 
-        var firstProcess = new SpawnWaveProcess(AsteroidManager, asteroids: 2);
-        var lastProcess = firstProcess
-            .Attach(new WaitProcess(waitTime: 1f))
-            .Attach(new SpawnWaveProcess(AsteroidManager, asteroids: 3))
-            .Attach(new WaitProcess(waitTime: 1f));
-        lastProcess.Attach(firstProcess);
+        _processList.Add(new SpawnWaveProcess(AsteroidManager, asteroids: 10));
+        _processList.Add(new WaitProcess(waitTime: 10f));
+        _processList.Add(new SpawnWaveProcess(AsteroidManager, asteroids: 30));
+        _processList.Add(new WaitProcess(waitTime: 10f));
 
-        _currentProcess = firstProcess;
+        _currentProcess = _processList[_processPointer];
     }
 
-    //void Start()
-    //{
-    //    StartCoroutine(LoopProcesses());
-    //}
+    /// <summary>
+    /// Gets the count of active processes. This does not count
+    /// the child processes of active processes.
+    /// </summary>
+    public int ProcessCount
+    {
+        get { return _processList.Count; }
+    }
 
-    ///// <summary>
-    ///// Gets the count of active processes. This does not count
-    ///// the child processes of active processes.
-    ///// </summary>
-    //public int ProcessCount
-    //{
-    //    get { return _processList.Count; }
-    //}
+    /// <summary>
+    /// Attaches a new active process.
+    /// </summary>        
+    public void Attach(Process process)
+    {
+        _processList.Add(process);
+    }
 
-    ///// <summary>
-    ///// Attaches a new active process.
-    ///// </summary>        
-    //public void Attach(Process process)
-    //{
-    //    _processList.Add(process);
-    //}
-
-    ///// <summary>
-    ///// Sets the state of all active processes to aborted.
-    ///// </summary>
-    //public void AbortAll()
-    //{
-    //    foreach (Process process in _processList)
-    //    {
-    //        process.State = ProcessState.Aborted;
-    //    }
-    //}
+    /// <summary>
+    /// Sets the state of all active processes to aborted.
+    /// </summary>
+    public void AbortAll()
+    {
+        foreach (Process process in _processList)
+        {
+            process.State = ProcessState.Aborted;
+        }
+    }
 
     /// <summary>
     /// Updates all the active processes.
@@ -66,6 +59,9 @@ public class ProcessManager : MonoBehaviour
     /// <returns>Number of succeeded and failed processes.</returns>
     private void FixedUpdate()
     {
+        if (_currentProcess == null)
+            return;
+
         // Process is uninitialized, so initialize it.
         if (_currentProcess.State == ProcessState.Uninitialized)
         {
@@ -84,15 +80,15 @@ public class ProcessManager : MonoBehaviour
             {
                 case ProcessState.Succeeded:
                     _currentProcess.OnSuccess();
-                    //IEnumerable<Process> children = _currentProcess.PeekChildren();
-                    //if (children != null)
-                    //{
-                    //    foreach (Process child in children)
-                    //    {
-                    //        Attach(child);
-                    //        child.OnAttach();
-                    //    }
-                    //}
+                    IEnumerable<Process> children = _currentProcess.PeekChildren();
+                    if (children != null)
+                    {
+                        foreach (Process child in children)
+                        {
+                            Attach(child);
+                            child.OnAttach();
+                        }
+                    }
                     break;
 
                 case ProcessState.Failed:
@@ -104,8 +100,9 @@ public class ProcessManager : MonoBehaviour
                     break;
             }
 
-            _currentProcess = _currentProcess.Next();
+            _currentProcess = _processList.GetNextElement(ref _processPointer, loop: IsLoop);
+            if (IsLoop)
+                _currentProcess.Reset();
         }
     }
-
 }
