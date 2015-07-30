@@ -4,22 +4,23 @@ using UnityEngine;
 /// <summary>
 /// Manages the processes. Processes can be looped.
 /// </summary>
-public class ProcessManager : MonoBehaviour
+public class ProcessManager : Singleton<ProcessManager>
 {
-    public AsteroidManager AsteroidManager;
     public bool IsLoop = true;
 
     private readonly List<Process> _processList = new List<Process>();
     private int _processPointer;
     private Process _currentProcess;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         _processList.Clear();
 
-        _processList.Add(new SpawnWaveProcess(AsteroidManager, asteroids: 10));
+        _processList.Add(new SpawnWaveProcess(asteroids: 10));
         _processList.Add(new WaitProcess(waitTime: 10f));
-        _processList.Add(new SpawnWaveProcess(AsteroidManager, asteroids: 30));
+        _processList.Add(new SpawnWaveProcess(asteroids: 30));
         _processList.Add(new WaitProcess(waitTime: 10f));
 
         _currentProcess = _processList[_processPointer];

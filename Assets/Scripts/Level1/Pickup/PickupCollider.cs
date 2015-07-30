@@ -1,24 +1,17 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Pickup object's collider space to detect, if player got close to pickup.
+/// </summary>
 public class PickupCollider : MonoBehaviour
 {
-    private AudioSource pickupSound;
-
-    void Start()
-    {
-        // TODO: add safety check
-        var sounds = GameObject.FindGameObjectWithTag("Sounds");
-
-        pickupSound = sounds.transform.FindChild("Pickup").GetComponent<AudioSource>();
-    }
-
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            ScoreManager.AddPointsForPickup();
+            ScoreManager.Instance.AddPointsForPickup();
             Destroy(transform.parent.gameObject);
-            pickupSound.Play();
+            SoundManager.Instance.PlayPickupSound();
         }
     }
 }

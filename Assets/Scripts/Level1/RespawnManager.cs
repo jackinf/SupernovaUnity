@@ -1,30 +1,36 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
-public class RespawnManager: MonoBehaviour
+/// <summary>
+/// Manager, which brings e.g. player back to the game
+/// </summary>
+public class RespawnManager: Singleton<RespawnManager>
 {
-    private static float _respawnTimeout = 3f;
-    private static float _respawnTimePassed;
-    private static bool _isRespawning;
-    private static GameObject _objectToRespawn;
+    protected RespawnManager() { }
 
-    void Update()
+    private GameObject _objectToRespawn;
+
+    /// <summary>
+    /// Begin the process of bringing the player back to the game.
+    /// </summary>
+    /// <param name="objectToRespawn"></param>
+    /// <param name="respawnTimeout"></param>
+    public void StartRespawn(GameObject objectToRespawn, float respawnTimeout = 3f)
     {
-        if (!_isRespawning)
-            return;
+        _objectToRespawn = objectToRespawn;
 
-        _respawnTimePassed += Time.deltaTime;
-        if (_respawnTimeout < _respawnTimePassed)
-        {
-            _objectToRespawn.SetActive(true);
-            _isRespawning = false;
-        }
+        StartCoroutine(RespawnInProgress(respawnTimeout));
     }
 
-    public static void StartRespawn(GameObject objectToRespawn, float respawnTimeout = 3f)
+    /// <summary>
+    /// Coroutine process.
+    /// </summary>
+    /// <param name="respawnTimeout">How long to wait</param>
+    /// <returns></returns>
+    IEnumerator RespawnInProgress(float respawnTimeout)
     {
-        _respawnTimePassed = 0;
-        _objectToRespawn = objectToRespawn;
-        _respawnTimeout = respawnTimeout;
-        _isRespawning = true;
+        yield return new WaitForSeconds(respawnTimeout);
+
+        _objectToRespawn.SetActive(true);
     }
 }

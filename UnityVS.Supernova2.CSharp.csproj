@@ -75,13 +75,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Common\ApplicationModel.cs" />
+    <Compile Include="Assets\Scripts\Common\DontDestroy.cs" />
     <Compile Include="Assets\Scripts\Common\Helpers.cs" />
+    <Compile Include="Assets\Scripts\Common\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\Common\ShowScore.cs" />
+    <Compile Include="Assets\Scripts\Common\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Common\StartTheGame.cs" />
     <Compile Include="Assets\Scripts\Level1\Asteroids\Asteroid.cs" />
     <Compile Include="Assets\Scripts\Level1\Asteroids\AsteroidCollider.cs" />
     <Compile Include="Assets\Scripts\Level1\Asteroids\AsteroidManager.cs" />
     <Compile Include="Assets\Scripts\Level1\DestroyOnTimeout.cs" />
     <Compile Include="Assets\Scripts\Level1\Input\InputManager.cs" />
     <Compile Include="Assets\Scripts\Level1\Input\InputState.cs" />
+    <Compile Include="Assets\Scripts\Level1\Objectives\DestroyAsteroidsObjective.cs" />
+    <Compile Include="Assets\Scripts\Level1\Objectives\Objective.cs" />
+    <Compile Include="Assets\Scripts\Level1\Objectives\ObjectiveManager.cs" />
     <Compile Include="Assets\Scripts\Level1\Orbiteer.cs" />
     <Compile Include="Assets\Scripts\Level1\Pause.cs" />
     <Compile Include="Assets\Scripts\Level1\Pickup\Pickup.cs" />
@@ -98,11 +106,11 @@
     <Compile Include="Assets\Scripts\Level1\Shooting\BulletDamage.cs" />
     <Compile Include="Assets\Scripts\Level1\Shooting\BulletManager.cs" />
     <Compile Include="Assets\Scripts\Level1\Shooting\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Level1\SoundManager.cs" />
     <Compile Include="Assets\Scripts\ShipSelectionScene\ChangeShip.cs" />
     <Compile Include="Assets\Scripts\ShipSelectionScene\Enabler.cs" />
     <Compile Include="Assets\Scripts\ShipSelectionScene\ShipSelectionManager.cs" />
     <Compile Include="Assets\Scripts\ShipSelectionScene\Spinner.cs" />
-    <Compile Include="Assets\Scripts\StartScene\StartTheGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />

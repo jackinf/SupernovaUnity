@@ -1,8 +1,13 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
-public class BulletManager : MonoBehaviour 
+/// <summary>
+/// Updates all the bullets in the game.
+/// TODO: Add pool of bullets in order to reuse them for better efficiency. 
+/// </summary>
+public class BulletManager : Singleton<BulletManager>
 {
+    protected BulletManager() { }
+
     private readonly List<Bullet> _bullets = new List<Bullet>(); 
 
     void FixedUpdate()

@@ -1,14 +1,14 @@
-﻿using Random = System.Random;
+﻿using UnityEngine;
 
+/// <summary>
+/// Spawns a lot of asteroids at once on random positions.
+/// </summary>
 public class SpawnWaveProcess : Process 
 {
-    private readonly AsteroidManager _asteroidManager;
     private readonly int _asteroids;
-    private readonly Random _rand = new Random();
 
-    public SpawnWaveProcess(AsteroidManager asteroidManager, int asteroids)
+    public SpawnWaveProcess(int asteroids)
     {
-        _asteroidManager = asteroidManager;
         _asteroids = asteroids;
     }
 
@@ -18,7 +18,7 @@ public class SpawnWaveProcess : Process
 
         for (int i = 0; i < _asteroids; i++)
         {
-            _asteroidManager.SpawnAsteroidAt(_rand.Next(0, 359), _rand.Next(0, 359));
+            AsteroidManager.Instance.SpawnAsteroidAt(Random.Range(0, 359), Random.Range(0, 359));
         }
 
         State = ProcessState.Succeeded;

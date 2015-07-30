@@ -1,19 +1,26 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviour
+/// <summary>
+/// Calculates player's accumulated score.
+/// </summary>
+public class ScoreManager : Singleton<ScoreManager>
 {
+    protected ScoreManager() { }
+
     public Text UiAsteroidText;
     public Text UiScoreText;
     public Slider BottomSlider;
 
-    private static int asteroidsDestroyed = 0;
-    private static int score = 0;
-    private static int sliderValue = 0;
-    private static bool updateHudElements = false;
+    private int _asteroidsDestroyed = 0;
+    private static int _score = 0;
+    private int _bottomSliderValue = 0;
+    private bool _updateHudElements = false;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         if (BottomSlider != null)
         {
             BottomSlider.minValue = ApplicationModel.SliderMinValue;
@@ -21,30 +28,37 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    public static void AddPointsForAsteroid()
+    public void AddPointsForAsteroid()
     {
-        asteroidsDestroyed++;
-        score += ApplicationModel.AsteroidPoints;
-        updateHudElements = true;
-        sliderValue += ApplicationModel.SliderStep;
+        _asteroidsDestroyed++;
+        _score += ApplicationModel.AsteroidPoints;
+        _updateHudElements = true;
+        _bottomSliderValue += ApplicationModel.SliderStep;
     }
 
-    public static void AddPointsForPickup()
+    public void AddPointsForPickup()
     {
-        score += ApplicationModel.PickupPoints;
-        updateHudElements = true;
-        sliderValue += ApplicationModel.SliderStep;
+        _score += ApplicationModel.PickupPoints;
+        _updateHudElements = true;
+        _bottomSliderValue += ApplicationModel.SliderStep;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (updateHudElements)
+        if (_updateHudElements)
         {
-            updateHudElements = false;
-            UiAsteroidText.text = "Asteroids: " + asteroidsDestroyed + "/∞";
-            UiScoreText.text = "Score: " + score;
+            _updateHudElements = false;
+            UiAsteroidText.text = "Asteroids: " + _asteroidsDestroyed + "/∞";
+            UiScoreText.text = "Score: " + _score;
             if (BottomSlider != null)
-                BottomSlider.value = Mathf.Clamp(sliderValue, 0, 100);
+                BottomSlider.value = Mathf.Clamp(_bottomSliderValue, 0, 100);
         }
+    }
+
+    public static int GetScore()
+    {
+        var score = _score;
+        _score = 0;
+        return score;
     }
 }

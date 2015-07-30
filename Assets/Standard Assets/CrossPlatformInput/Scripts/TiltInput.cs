@@ -16,7 +16,6 @@ namespace UnityStandardAssets.CrossPlatformInput
             SidewaysAxis,
         }
 
-
         [Serializable]
         public class AxisMapping
         {

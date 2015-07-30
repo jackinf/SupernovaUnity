@@ -5,8 +5,10 @@ using Random = System.Random;
 /// <summary>
 /// Stores and updates all asteroids
 /// </summary>
-public class AsteroidManager : MonoBehaviour
+public class AsteroidManager : Singleton<AsteroidManager>
 {
+    protected AsteroidManager() { }
+
     public GameObject asteroidTemplate;
     public List<Asteroid> oribitingAsteroids = new List<Asteroid>();
     public float minScale = 0.5f;
@@ -17,6 +19,9 @@ public class AsteroidManager : MonoBehaviour
     public bool freeze = false;
 
     private readonly Random _rand = new Random();
+
+    public delegate void Test(object sender);
+    public event Test OnAsteroidDestroy;
 
     void FixedUpdate()
     {
@@ -31,9 +36,13 @@ public class AsteroidManager : MonoBehaviour
             var asteroid = oribitingAsteroids[i];
             if (!freeze)
                 asteroid.UpdateInner();
-            
+
             if (!asteroid.IsAlive())
+            {
                 oribitingAsteroids.RemoveAt(i);
+                if (OnAsteroidDestroy != null)
+                    OnAsteroidDestroy(this);
+            }
         }
     }
 

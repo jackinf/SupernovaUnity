@@ -42,8 +42,10 @@ public class InputAxisState
     }
 }
 
-public class InputManager : MonoBehaviour
+public class InputManager : Singleton<InputManager>
 {
+    protected InputManager() { }
+
     public InputAxisState[] inputs;
 
     public InputState inputState;
