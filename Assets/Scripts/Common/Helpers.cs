@@ -14,6 +14,14 @@ public static class Helpers
         gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
+    public static int GetNextPointer(ref int pointer, int listCount, bool previous = false)
+    {
+        pointer = previous ? pointer - 1 : pointer + 1;
+        pointer = pointer == listCount ? 0 : pointer <= -1 ? listCount - 1 : pointer;
+
+        return pointer;
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -33,8 +41,7 @@ public static class Helpers
         if (!loop && (pointer >= listCount || pointer < 0))
             return null;
 
-        pointer = previous ? pointer - 1 : pointer + 1;
-        pointer = pointer == listCount ? 0 : pointer <= -1 ? listCount - 1 : pointer;
+        GetNextPointer(ref pointer, listCount, previous);
 
         return list[pointer];
     }

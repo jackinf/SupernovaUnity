@@ -4,12 +4,12 @@ public class StartTheGame : MonoBehaviour
 {
     public void ShowShipSelectionMenu()
     {
-        Application.LoadLevel(1);
+        Application.LoadLevel(ApplicationModel.Levels.ShipSelectionMenu);
     }
 
     public void LoadLevelOne()
     {
-        Application.LoadLevel(2);
+        Application.LoadLevel(ApplicationModel.Levels.Level1);
     }
 
     public void ShowOptionsMenu()

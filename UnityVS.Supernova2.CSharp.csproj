@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\Level1\Input\InputManager.cs" />
     <Compile Include="Assets\Scripts\Level1\Input\InputState.cs" />
     <Compile Include="Assets\Scripts\Level1\Orbiteer.cs" />
+    <Compile Include="Assets\Scripts\Level1\Pause.cs" />
     <Compile Include="Assets\Scripts\Level1\Pickup\Pickup.cs" />
     <Compile Include="Assets\Scripts\Level1\Pickup\PickupCollider.cs" />
     <Compile Include="Assets\Scripts\Level1\Pickup\PickupManager.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Assets\Scripts\Level1\Shooting\BulletManager.cs" />
     <Compile Include="Assets\Scripts\Level1\Shooting\Weapon.cs" />
     <Compile Include="Assets\Scripts\ShipSelectionScene\ChangeShip.cs" />
+    <Compile Include="Assets\Scripts\ShipSelectionScene\Enabler.cs" />
     <Compile Include="Assets\Scripts\ShipSelectionScene\ShipSelectionManager.cs" />
     <Compile Include="Assets\Scripts\ShipSelectionScene\Spinner.cs" />
     <Compile Include="Assets\Scripts\StartScene\StartTheGame.cs" />
