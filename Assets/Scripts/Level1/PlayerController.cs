@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject center;           // point to rotate around
     public float speed = 3;             // movement speed
+    public int lives = 3;
     public GameObject shipModels;       // contains all ship models
 
     private Weapon _weapon;
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
         _weapon = GetComponent<Weapon>();
         _collisionDetector = GetComponent<SphereCollider>();
         SetSelectedShipModel();
+        ScoreManager.SetLives(lives);
         //_meshRenderer = gameObject.transform.GetChild(0).GetComponent<MeshRenderer>();
     }
 
@@ -27,18 +29,32 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(InvincibleAndBlink());
     }
 
-    void Update()
+    void OnDisable()
+    {
+        if (ScoreManager.Instance != null)
+            ScoreManager.SetLives(--lives);
+    }
+
+    void FixedUpdate()
     {
         // Draw local coordinates
         Debug.DrawLine(transform.position, transform.position + transform.forward * 10, Color.blue);
         Debug.DrawLine(transform.position, transform.position + transform.up * 10, Color.green);
         Debug.DrawLine(transform.position, transform.position + transform.right * 10, Color.red);
+    }
 
+    void Update()
+    {
         // Movement logic
         RotateUsingQuaternions();
 
         // Shooting logic
         Shooting();
+
+        if (lives <= 0)
+        {
+            LevelManager.Lose();
+        }
     }
 
     /// <summary>
@@ -113,7 +129,7 @@ public class PlayerController : MonoBehaviour
     /// Can anybody kill the player?
     /// </summary>
     /// <param name="value">Invincible or not?</param>
-    private void SetInvincible(bool value)
+    public void SetInvincible(bool value)
     {
         _collisionDetector.enabled = !value;
     }

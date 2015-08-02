@@ -9,6 +9,7 @@ public class DestroyAsteroidsObjective : Objective
     public DestroyAsteroidsObjective(int howMany)
     {
         _asteroidsToDestroy = howMany;
+        ScoreManager.SetTargetAsteroids("Asteroids: " + _asteroidsDestroyed + "/" + _asteroidsToDestroy);
     }
 
     public override void OnStart()
@@ -25,6 +26,9 @@ public class DestroyAsteroidsObjective : Objective
 
     private void IncrementAndCheck(object sender)
     {
+        if (_asteroidsDestroyed < _asteroidsToDestroy)
+            ScoreManager.SetTargetAsteroids("Asteroids: " + (_asteroidsDestroyed + 1) + "/" + _asteroidsToDestroy);
+
         if (++_asteroidsDestroyed >= _asteroidsToDestroy)
             State = ObjectiveState.Completed;
     }
