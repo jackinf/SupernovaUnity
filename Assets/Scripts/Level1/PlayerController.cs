@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// TODO: Rename to Player
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
     public GameObject center;           // point to rotate around
@@ -46,10 +49,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Movement logic
-        RotateUsingQuaternions();
+        RotateUsingQuaternions();       // TODO: put into player's movements
 
         // Shooting logic
-        Shooting();
+        Shooting();                     // TODO: put into weapon and call using OnUpdate()
 
         if (lives <= 0)
         {
